@@ -8,8 +8,6 @@ class BooksApp extends React.Component {
   state = {
     showSearchPage: false,
     booksArr: [],
-    /*movement: (book,shelf) => {
-      console.log(book,shelf)*/
   };
 
   // here i'm using componentDidMount() and getAll() to get the books array and assign it to setState().
