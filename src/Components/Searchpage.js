@@ -4,14 +4,10 @@ import { search } from "../BooksAPI";
 import Book from "./Book";
 
 class Searchpage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      newQuery: "",
-      booksArr: [],
-    };
-  }
-
+  state = {
+    newQuery: "",
+    booksArr: [],
+  };
   /* Here I'm gonna do the same thing as the eventHandler in Book.js and also add other things  */
   eventHandler = async (x) => {
     const newQuery = x.target.value;
@@ -21,7 +17,12 @@ class Searchpage extends Component {
       if (res.error) {
         this.setState({ booksArr: [] });
       } else {
-        this.setState({ booksArr: res });
+        const bks = [];
+        res.forEach((bk) => {
+          const appBk = this.props.books[`${bk.id}`];
+          bks.push({ ...bk, shelf: appBk ? appBk.shelf : "none" });
+        });
+        this.setState({ booksArr: bks });
       }
     } else {
       this.setState({ booksArr: [] });

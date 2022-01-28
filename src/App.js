@@ -16,7 +16,8 @@ class BooksApp extends React.Component {
   componentDidMount = () => {
     getAll().then((booksArr) => {
       this.setState({ booksArr });
-      // console.log("xxs", booksArr); --->>> just for testing 
+      console.log('bookArr >> ', booksArr)
+      // console.log("xxs", booksArr); --->>> just for testing
     });
   };
 
@@ -36,7 +37,15 @@ class BooksApp extends React.Component {
           />
 
           {/* this the replacement to the state that was here and here I will apply the specification of the project rubric to make the search page' URL displayed in the address bar is /search. */}
-          <Route path={"/search"} element={<Searchpage />} />
+          <Route
+            path={"/search"}
+            element={
+              <Searchpage
+                books={this.state.booksArr.reduce((a, v) => ({ ...a, [v.id]: v}), {})}
+                refresh={this.componentDidMount}
+              />
+            }
+          />
         </Routes>
       </div>
     );
