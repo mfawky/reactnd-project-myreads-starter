@@ -1,6 +1,21 @@
 import React, { Component } from "react";
+import { update } from "../BooksAPI";
 
 class Book extends Component {
+  
+  eventHandler = async x =>{
+    //try{
+    const newShelf = x.target.value;
+    const book = this.props.details
+    const res = await update(book, newShelf)
+    console.log('update res >> ', res)
+    this.props.refresh();
+    /*}catch (error){
+      console.log(error);
+    }*/
+    
+  }
+
   render() {
     return (
       <li>
@@ -16,8 +31,8 @@ class Book extends Component {
                 })`,
               }}
             />
-            <div className="book-shelf-changer">
-              <select value={this.props.Shelf}>
+            <div className="book-shelf-changer" >
+              <select onChange={this.eventHandler} value={this.props.details.shelf}>
                 <option value="move" disabled>
                   Move to...
                 </option>

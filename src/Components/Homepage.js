@@ -16,17 +16,23 @@ class Homepage extends Component {
             books={this.props.books.filter(
               (book) => book.shelf === "currentlyReading"
             )}
-            title=" Reading"
+            title="Currently Reading"
+            movement = {this.props.movement}
+            refresh = {this.props.refresh}
           />
           <Shelf
             books={this.props.books.filter(
               (book) => book.shelf === "wantToRead"
             )}
             title="Want To Read"
+            movement = {this.props.movement}
+            refresh = {this.props.refresh}
           />
           <Shelf
             books={this.props.books.filter((book) => book.shelf === "read")}
             title="Read"
+            movement = {this.props.movement}
+            refresh = {this.props.refresh}
           />
         </div>
         <Plusbtn /> {/* here I did the same thing with the Plus button */}

@@ -9,8 +9,8 @@ class Shelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.books.map((book) => (
-              <Book key={book.id} details={book} />
-            ))}
+              <Book key={book.id} details={book} movement = {this.props.movement} refresh = {this.props.refresh} />
+              ))}
             {/* here it refrences to the Book.js react component I created to ease the code readability*/}
           </ol>
         </div>
