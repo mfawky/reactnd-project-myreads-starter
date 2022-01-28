@@ -1,7 +1,33 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { search } from "../BooksAPI";
+import Book from "./Book";
 
 class Searchpage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newQuery: "",
+      booksArr: [],
+    };
+  }
+
+  /* Here I'm gonna do the same thing as the eventHandler in Book.js and also add other things  */
+  eventHandler = async (x) => {
+    const newQuery = x.target.value;
+    this.setState({ newQuery });
+    if (newQuery) {
+      const res = await search(newQuery);
+      if (res.error) {
+        this.setState({ booksArr: [] });
+      } else {
+        this.setState({ booksArr: res });
+      }
+    } else {
+      this.setState({ booksArr: [] });
+    }
+  };
+
   render() {
     return (
       <div className="search-books">
@@ -18,11 +44,25 @@ class Searchpage extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-            <input type="text" placeholder="Search by title or author" />
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              onChange={this.eventHandler}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid" />
+          <ol className="books-grid">
+            {this.state.booksArr.length > 0 &&
+              this.state.booksArr.map((book) => (
+                <Book
+                  key={book.id}
+                  details={book}
+                  movement={this.props.movement}
+                  refresh={this.props.refresh}
+                />
+              ))}
+          </ol>
         </div>
       </div>
     );

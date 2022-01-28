@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
   componentDidMount = () => {
     getAll().then((booksArr) => {
       this.setState({ booksArr });
-      console.log("xxs", booksArr);
+      // console.log("xxs", booksArr); --->>> just for testing 
     });
   };
 
