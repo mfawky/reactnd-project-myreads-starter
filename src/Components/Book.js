@@ -50,7 +50,7 @@ class Book extends Component {
           <div className="book-title">{this.props.details.title}</div>
           <div className="book-authors">
             {this.props.details.authors
-              ? this.props.details.authors[0]
+              ? this.props.details.authors.join()
               : "Author Not Found"}
           </div>
           {/* And because there are books with no author, this step makes sure that not findig an author for a specific book will not be a problem and there will not be a crash to happen*/}

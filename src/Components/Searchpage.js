@@ -8,6 +8,7 @@ class Searchpage extends Component {
     newQuery: "",
     booksArr: [],
   };
+
   // Here I'm gonna do the same thing as the eventHandler in Book.js but to search for the books and return them to the search page
   eventHandler = async (x) => {
     const newQuery = x.target.value;
@@ -23,6 +24,7 @@ class Searchpage extends Component {
           bks.push({ ...bk, shelf: appBk ? appBk.shelf : "none" });
         });
         this.setState({ booksArr: bks });
+        console.log("asd");
       }
     } else {
       this.setState({ booksArr: [] });
@@ -33,13 +35,14 @@ class Searchpage extends Component {
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          {/* here to help us navigate from the search page to the home page */}  
+          {/* here to help us navigate from the search page to the home page */}
           <Link to={"/"} className="close-search">
             Close
           </Link>
           <div className="search-books-input-wrapper">
             <input
               type="text"
+              ref={this.inputRef}
               placeholder="Search by title or author"
               onChange={this.eventHandler}
             />
@@ -47,7 +50,7 @@ class Searchpage extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {this.state.booksArr.length > 0 &&
+            {this.state.booksArr.length > 0 ? (
               this.state.booksArr.map((book) => (
                 <Book
                   key={book.id}
@@ -55,7 +58,10 @@ class Searchpage extends Component {
                   movement={this.props.movement}
                   refresh={this.props.refresh}
                 />
-              ))}
+              ))
+            ) : (
+              <h3>No books found</h3>
+            )}
           </ol>
         </div>
       </div>
